@@ -1,9 +1,13 @@
+/*global PluginArray:true*/
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('parallax-content', 'Integration | Component | parallax content', {
   integration: true
 });
+
+const IS_PHANTOM = !(window.navigator.plugins instanceof PluginArray) ||
+  window.navigator.plugins.length === 0;
 
 test('it renders', function(assert) {
   // Template block usage:
@@ -27,9 +31,9 @@ test('offsetTop is handled properly', function(assert) {
   `);
 
   assert.equal(this.$('.parallax-content').css('position'), 'absolute');
-  assert.equal(this.$('.parallax-content .scroll-speed-adjust').css('top'), '120px');
+  assert.equal(this.$('.parallax-content .scroll-speed-adjust').css('top'), IS_PHANTOM ? '60px' : '120px');
   this.set('top', -50);
-  assert.equal(this.$('.parallax-content .scroll-speed-adjust').css('top'), '-50px');
+  assert.equal(this.$('.parallax-content .scroll-speed-adjust').css('top'), IS_PHANTOM ? '-25px' : '-50px');
 });
 
 test('scrolling is handled properly', function(assert) {
@@ -49,6 +53,6 @@ test('scrolling is handled properly', function(assert) {
   `);
   assert.equal(this.$('.parallax-content .scroll-speed-adjust').css('top'), '0px');
   this.set('windoc.scrollTop', 400);
-  assert.equal(this.$('.parallax-content .scroll-speed-adjust').css('top'), '200px');
+  assert.equal(this.$('.parallax-content .scroll-speed-adjust').css('top'), IS_PHANTOM ? '100px' : '200px');
 
 });
