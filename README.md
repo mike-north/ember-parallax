@@ -2,7 +2,26 @@
 
 Parallax support for ember.js apps
 
-## Installation
+![ember-parallax](http://i65.tinypic.com/rs4zzs.gif)
+
+## Use
+
+### Installation
+Install this addon using ember-cli
+
+```
+ember install ember-parallax
+```
+
+Wrap whatever content you like in the `{{parallax-content}}` component, specifying a speed and a height
+
+```hbs
+{{#parallax-content speed=0.5 height=400 }}
+  <img src="./img/stellar-spire-eagle-nebula-1400x900.jpg">
+{{/parallax-content}}
+```
+
+## Contributing
 
 * `git clone` this repository
 * `npm install`

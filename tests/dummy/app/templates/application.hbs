@@ -1,3 +1,22 @@
-<h2 id="title">Welcome to Ember</h2>
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <h2>Ember-Parallax</h2>
+    </div>
+  </div>
+</div>
+<div class="row examples">
+  <div class="col s12 nopad">
+{{#parallax-content speed=0.5 height=400 }}
+  <img src="./img/stellar-spire-eagle-nebula-1400x900.jpg" alt="">
+{{/parallax-content}}
 
-{{outlet}}
+      {{#parallax-content speed=2 height=400 offsetTop=200}}
+      <div class="center-align">
+        <img src="./img/tomster.png" alt="">
+      </div>
+      {{/parallax-content}}
+
+  </div>
+</div>
+
