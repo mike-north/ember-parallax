@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import layout from '../templates/components/scroll-speed-adjust';
 
-const { Component, computed, inject, run: { next }, String: { htmlSafe } } = Ember;
+const { Component, computed, inject, run: { scheduleOnce }, String: { htmlSafe } } = Ember;
 
 export default Component.extend({
   classNames: ['scroll-speed-adjust'],
@@ -12,7 +12,7 @@ export default Component.extend({
   offsetTop: 0,
   didInsertElement() {
     this._super(...arguments);
-    next(() => {
+    scheduleOnce('afterRender', () => {
       // if (this.get('offsetTop') === null || this.get('offsetTop') === null) {
       //   this.set('offsetTop', this.$().offset().top);
       // }
