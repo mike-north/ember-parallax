@@ -1,33 +1,39 @@
+---
 language: node_js
 node_js:
-- '4'
+  - "4"
+
 sudo: false
+
 cache:
   directories:
-  - node_modules
+    - node_modules
+
 env:
-- EMBER_TRY_SCENARIO=default
-- EMBER_TRY_SCENARIO=ember-1.13
-- EMBER_TRY_SCENARIO=ember-release
-- EMBER_TRY_SCENARIO=ember-beta
-- EMBER_TRY_SCENARIO=ember-canary
+  - EMBER_TRY_SCENARIO=default
+  - EMBER_TRY_SCENARIO=ember-1.13
+  - EMBER_TRY_SCENARIO=ember-release
+  - EMBER_TRY_SCENARIO=ember-beta
+  - EMBER_TRY_SCENARIO=ember-canary
+
 matrix:
   fast_finish: true
   allow_failures:
-  - env: EMBER_TRY_SCENARIO=ember-canary
+    - env: EMBER_TRY_SCENARIO=ember-canary
+
 before_install:
-- mkdir travis-phantomjs
-- wget https://s3.amazonaws.com/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2
-  -O $PWD/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2
-- tar -xvf $PWD/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2 -C $PWD/travis-phantomjs
-- export PATH=$PWD/travis-phantomjs:$PATH
-- npm config set spin false
-- npm install -g bower
+  - npm config set spin false
+  - npm install -g bower
+  - bower --version
+  - npm install phantomjs-prebuilt
+  - phantomjs --version
+
 install:
-- npm install
-- bower install
+  - npm install
+  - bower install
+
 script:
-- ember try $EMBER_TRY_SCENARIO test
+  - ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
 notifications:
   slack:
     secure: Gv/WrxxTzTF0MZwpeN/b4DK5hUXMa6CbZJK7ofcVnWd11LhVAWXKPQFoHC1vvmAukVisf5ei3NG6zajjPVsLP2icPF2v5J3bse/dEtJgOnElARB0iZXMugCgMfCUsFT0vdpZG62kNG7vqXT5vDVlYs0Ewp0sfVjwbLX/jM535ZqXbFeg2fPL45b36mhbTOI7cfGF9AobrTR5BX2za2hJs9tJmUR2mMQLsIIO+pG8jLE2/gtaOORVE3tpRrEqiLjRxLqa7HVfBZiKLDAAVviq+qOoRXE9wRxO6bRuU5lGF6VMAXeevxsCw1+bGDw6v4dPGKSFzbxRNGKBAud32AKS8d5bkwwPZkB5szHso1HvHXmBKe+y4digBHNT1xQ8tZGAb4eEl80BTZls8lvRfIYbVbo+d+gmXP+jOnJqrdjFZk7XCu7OS0zYSna6VadN5OesN9E685L6/nbqPtrRyHX+X+DCbDmHAY+NAlgs1hylZffRg1/1t34FJAMCQKVb5q0NiJLz8OmbVvuCSgszL69XBk9pzTS/Sx+mkL5pANcMlgDrP0SWVoVnk5cQj91BMO42nFLpyf8M6oUYupG7ARXBvh/rSfUpfYebhJ36ZDsHwMFzZlNB8VlMMD7wrjgJX19+/cM1Fd8DCHo/5EmaUsqmRbl9s/eUpkcsmfnNG0e6l4Q=
