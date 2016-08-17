@@ -56,3 +56,27 @@ test('scrolling is handled properly', function(assert) {
   assert.equal(this.$('.parallax-content .scroll-speed-adjust').css('top'), IS_PHANTOM ? '100px' : '200px');
 
 });
+
+test('string height is handled properly', function(assert) {
+  this.render(hbs`
+    <div style="height: 2000px">
+    {{#parallax-content height="100vh"}}
+      template block text
+    {{/parallax-content}}
+    </div>
+  `);
+  assert.equal(this.$('.parallax-content')
+    .css('height'), `${window.innerHeight}px`);
+});
+
+test('numeric height is handled properly', function(assert) {
+  this.render(hbs`
+    <div style="height: 2000px">
+    {{#parallax-content height=100}}
+      template block text
+    {{/parallax-content}}
+    </div>
+  `);
+  assert.equal(this.$('.parallax-content')
+    .css('height'), '100px');
+});
