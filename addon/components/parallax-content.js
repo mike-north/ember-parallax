@@ -9,10 +9,16 @@ export default Component.extend({
   windoc: inject.service(),
   offsetTop: 0,
   layout,
-  style: computed('height', function() {
+  cssHeight: computed('height', function() {
+    if (typeof this.get('height') === 'string') {
+      return this.get('height');
+    }
+    return `${this.get('height')}px`;
+  }),
+  style: computed('cssHeight', function() {
     let cssAttrs = [];
 
-    cssAttrs.push(['height', `${this.get('height')}px`]);
+    cssAttrs.push(['height', this.get('cssHeight')]);
     cssAttrs.push(['overflow', `hidden`]);
     cssAttrs.push(['transform', `translate3d(0,0,0)`]);
     cssAttrs.push(['position', 'absolute']);
