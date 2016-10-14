@@ -1,4 +1,4 @@
-# ember-parallax [![Build Status](https://travis-ci.org/levanto-financial/ember-parallax.svg?branch=master)](https://travis-ci.org/levanto-financial/ember-parallax)
+# ember-parallax [![Build Status](https://travis-ci.org/mike-north/ember-parallax.svg?branch=master)](https://travis-ci.org/mike-north/ember-parallax)
 
 Parallax support for ember.js apps
 

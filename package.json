@@ -11,7 +11,7 @@
     "start": "ember server",
     "test": "ember try:each"
   },
-  "repository": "https://github.com/levanto-financial/ember-parallax",
+  "repository": "https://github.com/mike-north/ember-parallax",
   "engines": {
     "node": ">= 0.10.0"
   },

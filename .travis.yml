@@ -1,12 +1,8 @@
-
----
 language: node_js
 node_js:
-  - "stable"
-
+- 'stable'
 dist: trusty
 sudo: required
-
 addons:
   apt:
     sources:
@@ -16,38 +12,35 @@ addons:
 
 cache:
   directories:
-    - node_modules
-
+  - node_modules
 env:
-  - EMBER_TRY_SCENARIO=default
-  - EMBER_TRY_SCENARIO=ember-1.13
-  - EMBER_TRY_SCENARIO=ember-release
-  - EMBER_TRY_SCENARIO=ember-beta
-  - EMBER_TRY_SCENARIO=ember-canary
-
+- EMBER_TRY_SCENARIO=default
+- EMBER_TRY_SCENARIO=ember-1.13
+- EMBER_TRY_SCENARIO=ember-release
+- EMBER_TRY_SCENARIO=ember-beta
+- EMBER_TRY_SCENARIO=ember-canary
 matrix:
   fast_finish: true
   allow_failures:
-    - env: EMBER_TRY_SCENARIO=ember-canary
-
+  - env: EMBER_TRY_SCENARIO=ember-canary
 before_install:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - "npm config set spin false"
+- npm config set spin false
+- npm install -g bower
+- bower --version
+- "export DISPLAY=:99.0"
+- "sh -e /etc/init.d/xvfb start"
+- "npm config set spin false"
 
 install:
-  - npm install
-  - bower install
-
+- npm install
+- bower install
 script:
-  - ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
-notifications:
-  slack:
-    secure: Gv/WrxxTzTF0MZwpeN/b4DK5hUXMa6CbZJK7ofcVnWd11LhVAWXKPQFoHC1vvmAukVisf5ei3NG6zajjPVsLP2icPF2v5J3bse/dEtJgOnElARB0iZXMugCgMfCUsFT0vdpZG62kNG7vqXT5vDVlYs0Ewp0sfVjwbLX/jM535ZqXbFeg2fPL45b36mhbTOI7cfGF9AobrTR5BX2za2hJs9tJmUR2mMQLsIIO+pG8jLE2/gtaOORVE3tpRrEqiLjRxLqa7HVfBZiKLDAAVviq+qOoRXE9wRxO6bRuU5lGF6VMAXeevxsCw1+bGDw6v4dPGKSFzbxRNGKBAud32AKS8d5bkwwPZkB5szHso1HvHXmBKe+y4digBHNT1xQ8tZGAb4eEl80BTZls8lvRfIYbVbo+d+gmXP+jOnJqrdjFZk7XCu7OS0zYSna6VadN5OesN9E685L6/nbqPtrRyHX+X+DCbDmHAY+NAlgs1hylZffRg1/1t34FJAMCQKVb5q0NiJLz8OmbVvuCSgszL69XBk9pzTS/Sx+mkL5pANcMlgDrP0SWVoVnk5cQj91BMO42nFLpyf8M6oUYupG7ARXBvh/rSfUpfYebhJ36ZDsHwMFzZlNB8VlMMD7wrjgJX19+/cM1Fd8DCHo/5EmaUsqmRbl9s/eUpkcsmfnNG0e6l4Q=
+- ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
 deploy:
   provider: heroku
   api_key:
-    secure: ZjbXTQgkZflfQrsTyWMU+OYpvgh+WnHnRbcgCoEYAIUhwEl/RlMNlt0yq/Y8moFUgot7u7BCPEeUbXmfmjw08iFwbXCxmgfXkWFHDxnIIgGpehj+3x6szzcHTnM1w8+pVRTfpnBlFE1FY/nmAM3kDZIcS8yeXEX7WYzLaWBrxmOiLSw6Iabzu3j2cS/m0zh5ovv2Qe66IDuMsWaXlLjzzfE/tYg94QTL/PTy3RIHm8KzMtJDIO8D/WpBmeSbmaiN3Gd4UB9up0MncuU9guYeVVFYigeUutAbidzLEbWZK3QhN5R96guDt+WEaht6Uk9P/JHjpEUWivR0Q+5g3hm/B6+k/o/rlk1KaPEfTzwp+nWruaFRQvqoL8Lq8qMHVz3QgAPpu90dLFZlKgbC1vU9LEqFjovOyjSpXXKIynZVuOo9xdnBDH9aKhaHEnQgWUEHqRUiDz8r8jVjMZoXUqfMDzS6O1am+u8XaK6QeAvl+/GbkWjvnwfpGrplSYREcSGzruEa7WVqTGvFfEKzYIQQjd5j9uPkkpw/SKeU+1CTj5o/0ZIsRA58VK1uXwWO5YVP9etCjV2yehf8oDrEu+iIx8NmcOQdHum4bfMlWpDOOTMbj2cuZzTNuKiqx9UYGAHqhSr2uC1jcAJ5PXZXsOgCmyWL/6To0kXFjJs0+/HpYdc=
+    secure: a6n5AGyYGu+8qgFVsvbUBy/CkBA0EMu9K+O29gXC1mHWnFA2m1slR6m58gNxTEnkgEi+mbyJo0NbJmZJvDM3sFgkmvAYTUKPe7OwEwi5rAoR+8oXvJN6uGfI7+/xGpgIZp5MrxeAz43QUpvRs5PobUxi9LixGXp7uFbMvfNU+I5V6+B/+LrGmz7aeiY/YfAQs7zSLLeG1cfsnuau5epUSFM369TrPkld130kZy0c+ADKrQJ/DAf2PK398PyxvFAyfrXY63lJHAmt1zeJTdyxHxBi7l+GrAAlH7fJoqQ17GAYTn+pmwoPkRsoZTBFp3Ghd607nAAYnInjWltfFlAeY14Rke6EBdo7PTkUqSPrH6mpWqpgoYMO+zoQZJywGsCaU7EoWxnt51kd0XnJbM5wLtguOB/S+mQ0ssUPFLties0KsmPf4Y+dRgCrypTHjymS7A5aM8tdscsBvekzHmEny6zIr9MMpGD9iYaZ1Yi3M/GfScqJBxIRgzCkZTJctnAxGcqFZ6afd9WntvpCWdjwpKm7m2L3tWVt6qrUrjE4F2zAl+ioWCrA8/A+08YdX33v4g2FNae+m8KitYgXgA+J5LLQ/GMakeLoO+Ab3jIe6KHyYzFkLFX6hnoFp1DRMjf4MBhby4gjv0jYya4H05aYQ4gbPZXToDDzHQQbb7GZE3o=
   app: ember-parallax
   on:
-    repo: levanto-financial/ember-parallax
+    repo: mike-north/ember-parallax
+    branch: master
