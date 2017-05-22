@@ -19,8 +19,8 @@ export default Component.extend({
     let cssAttrs = [];
 
     cssAttrs.push(['height', this.get('cssHeight')]);
-    cssAttrs.push(['overflow', `hidden`]);
-    cssAttrs.push(['transform', `translate3d(0,0,0)`]);
+    cssAttrs.push(['overflow', 'hidden']);
+    cssAttrs.push(['transform', 'translate3d(0,0,0)']);
     cssAttrs.push(['position', 'absolute']);
     cssAttrs.push(['width', '100%']);
 

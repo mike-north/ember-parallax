@@ -2,7 +2,7 @@
 ---
 language: node_js
 node_js:
-  - "stable"
+  - "6"
 
 dist: trusty
 sudo: required
@@ -15,12 +15,11 @@ addons:
     - google-chrome-stable
 
 cache:
-  directories:
-    - node_modules
+  yarn: true
 
 env:
-  - EMBER_TRY_SCENARIO=default
-  - EMBER_TRY_SCENARIO=ember-1.13
+  - EMBER_TRY_SCENARIO=ember-lts-2.4
+  - EMBER_TRY_SCENARIO=ember-lts-2.8
   - EMBER_TRY_SCENARIO=ember-release
   - EMBER_TRY_SCENARIO=ember-beta
   - EMBER_TRY_SCENARIO=ember-canary
@@ -31,16 +30,16 @@ matrix:
     - env: EMBER_TRY_SCENARIO=ember-canary
 
 before_install:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - "npm config set spin false"
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH=$HOME/.yarn/bin:$PATH
+  - yarn global add phantomjs-prebuilt
+  - phantomjs --version
 
 install:
-  - npm install
-  - bower install
+  - yarn install --no-lockfile
 
 script:
-  - ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
+  - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
 notifications:
   slack:
     secure: Gv/WrxxTzTF0MZwpeN/b4DK5hUXMa6CbZJK7ofcVnWd11LhVAWXKPQFoHC1vvmAukVisf5ei3NG6zajjPVsLP2icPF2v5J3bse/dEtJgOnElARB0iZXMugCgMfCUsFT0vdpZG62kNG7vqXT5vDVlYs0Ewp0sfVjwbLX/jM535ZqXbFeg2fPL45b36mhbTOI7cfGF9AobrTR5BX2za2hJs9tJmUR2mMQLsIIO+pG8jLE2/gtaOORVE3tpRrEqiLjRxLqa7HVfBZiKLDAAVviq+qOoRXE9wRxO6bRuU5lGF6VMAXeevxsCw1+bGDw6v4dPGKSFzbxRNGKBAud32AKS8d5bkwwPZkB5szHso1HvHXmBKe+y4digBHNT1xQ8tZGAb4eEl80BTZls8lvRfIYbVbo+d+gmXP+jOnJqrdjFZk7XCu7OS0zYSna6VadN5OesN9E685L6/nbqPtrRyHX+X+DCbDmHAY+NAlgs1hylZffRg1/1t34FJAMCQKVb5q0NiJLz8OmbVvuCSgszL69XBk9pzTS/Sx+mkL5pANcMlgDrP0SWVoVnk5cQj91BMO42nFLpyf8M6oUYupG7ARXBvh/rSfUpfYebhJ36ZDsHwMFzZlNB8VlMMD7wrjgJX19+/cM1Fd8DCHo/5EmaUsqmRbl9s/eUpkcsmfnNG0e6l4Q=
@@ -50,4 +49,4 @@ deploy:
     secure: ZjbXTQgkZflfQrsTyWMU+OYpvgh+WnHnRbcgCoEYAIUhwEl/RlMNlt0yq/Y8moFUgot7u7BCPEeUbXmfmjw08iFwbXCxmgfXkWFHDxnIIgGpehj+3x6szzcHTnM1w8+pVRTfpnBlFE1FY/nmAM3kDZIcS8yeXEX7WYzLaWBrxmOiLSw6Iabzu3j2cS/m0zh5ovv2Qe66IDuMsWaXlLjzzfE/tYg94QTL/PTy3RIHm8KzMtJDIO8D/WpBmeSbmaiN3Gd4UB9up0MncuU9guYeVVFYigeUutAbidzLEbWZK3QhN5R96guDt+WEaht6Uk9P/JHjpEUWivR0Q+5g3hm/B6+k/o/rlk1KaPEfTzwp+nWruaFRQvqoL8Lq8qMHVz3QgAPpu90dLFZlKgbC1vU9LEqFjovOyjSpXXKIynZVuOo9xdnBDH9aKhaHEnQgWUEHqRUiDz8r8jVjMZoXUqfMDzS6O1am+u8XaK6QeAvl+/GbkWjvnwfpGrplSYREcSGzruEa7WVqTGvFfEKzYIQQjd5j9uPkkpw/SKeU+1CTj5o/0ZIsRA58VK1uXwWO5YVP9etCjV2yehf8oDrEu+iIx8NmcOQdHum4bfMlWpDOOTMbj2cuZzTNuKiqx9UYGAHqhSr2uC1jcAJ5PXZXsOgCmyWL/6To0kXFjJs0+/HpYdc=
   app: ember-parallax
   on:
-    repo: levanto-financial/ember-parallax
+    repo: mike-north/ember-parallax

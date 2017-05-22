@@ -1,4 +1,4 @@
-/*global PluginArray:true*/
+/* global PluginArray:true*/
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
@@ -6,8 +6,8 @@ moduleForComponent('parallax-content', 'Integration | Component | parallax conte
   integration: true
 });
 
-const IS_PHANTOM = !(window.navigator.plugins instanceof PluginArray) ||
-  window.navigator.plugins.length === 0;
+const IS_PHANTOM = !(window.navigator.plugins instanceof PluginArray)
+  || window.navigator.plugins.length === 0;
 
 test('it renders', function(assert) {
   // Template block usage:
