@@ -1,5 +1,7 @@
 # ember-parallax [![Build Status](https://travis-ci.org/levanto-financial/ember-parallax.svg?branch=master)](https://travis-ci.org/levanto-financial/ember-parallax)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/mike-north/ember-parallax.svg)](https://greenkeeper.io/)
+
 Parallax support for ember.js apps
 
 ![ember-parallax](http://i65.tinypic.com/rs4zzs.gif)
