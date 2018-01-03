@@ -1,12 +1,14 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { scheduleOnce } from '@ember/runloop';
+import { htmlSafe } from '@ember/string';
 import layout from '../templates/components/scroll-speed-adjust';
-
-const { Component, computed, inject, run: { scheduleOnce }, String: { htmlSafe } } = Ember;
 
 export default Component.extend({
   classNames: ['scroll-speed-adjust'],
   layout,
-  windoc: inject.service(),
+  windoc: service(),
   speed: 1,
   attributeBindings: ['style'],
   offsetTop: 0,
@@ -24,10 +26,14 @@ export default Component.extend({
     let cssAttrs = [];
     if (this.get('offsetTop') !== null) {
       cssAttrs.push(['position', 'relative']);
-      cssAttrs.push(['top', `${this.get('offsetTop') - (this.get('windoc.scrollTop') * this.get('speed'))}px`]);
+      cssAttrs.push(['top', `${this.get('offsetTop') - this.get('windoc.scrollTop') * this.get('speed')}px`]);
     }
-    return htmlSafe(cssAttrs.map((a) => {
-      return `${a[0]}: ${a[1]}`;
-    }).join('; '));
+    return htmlSafe(
+      cssAttrs
+        .map(a => {
+          return `${a[0]}: ${a[1]}`;
+        })
+        .join('; ')
+    );
   })
 });

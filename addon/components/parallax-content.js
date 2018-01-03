@@ -1,12 +1,13 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { htmlSafe } from '@ember/string';
 import layout from '../templates/components/parallax-content';
-
-const { Component, computed, inject, String: { htmlSafe } } = Ember;
 
 export default Component.extend({
   classNames: ['parallax-content'],
   attributeBindings: ['style'],
-  windoc: inject.service(),
+  windoc: service(),
   offsetTop: 0,
   layout,
   cssHeight: computed('height', function() {
@@ -24,8 +25,12 @@ export default Component.extend({
     cssAttrs.push(['position', 'absolute']);
     cssAttrs.push(['width', '100%']);
 
-    return htmlSafe(cssAttrs.map((a) => {
-      return `${a[0]}: ${a[1]}`;
-    }).join('; '));
+    return htmlSafe(
+      cssAttrs
+        .map(a => {
+          return `${a[0]}: ${a[1]}`;
+        })
+        .join('; ')
+    );
   })
 });
