@@ -26,10 +26,14 @@ export default Component.extend({
     let cssAttrs = [];
     if (this.get('offsetTop') !== null) {
       cssAttrs.push(['position', 'relative']);
-      cssAttrs.push(['top', `${this.get('offsetTop') - (this.get('windoc.scrollTop') * this.get('speed'))}px`]);
+      cssAttrs.push(['top', `${this.get('offsetTop') - this.get('windoc.scrollTop') * this.get('speed')}px`]);
     }
-    return htmlSafe(cssAttrs.map((a) => {
-      return `${a[0]}: ${a[1]}`;
-    }).join('; '));
+    return htmlSafe(
+      cssAttrs
+        .map(a => {
+          return `${a[0]}: ${a[1]}`;
+        })
+        .join('; ')
+    );
   })
 });

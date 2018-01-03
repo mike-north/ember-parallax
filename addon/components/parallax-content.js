@@ -25,8 +25,12 @@ export default Component.extend({
     cssAttrs.push(['position', 'absolute']);
     cssAttrs.push(['width', '100%']);
 
-    return htmlSafe(cssAttrs.map((a) => {
-      return `${a[0]}: ${a[1]}`;
-    }).join('; '));
+    return htmlSafe(
+      cssAttrs
+        .map(a => {
+          return `${a[0]}: ${a[1]}`;
+        })
+        .join('; ')
+    );
   })
 });
