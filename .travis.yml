@@ -1,7 +1,8 @@
----
 language: node_js
 node_js:
-  - "4"
+  # we recommend testing addons with the same minimum supported node version as Ember CLI
+  # so that your addon works for all apps
+  - '8'
 
 sudo: false
 dist: trusty
@@ -16,20 +17,39 @@ env:
   global:
     # See https://git.io/vdao3 for details.
     - JOBS=1
-  matrix:
-    # we recommend new addons test the current and previous LTS
-    # as well as latest stable release (bonus points to beta/canary)
-    - EMBER_TRY_SCENARIO=ember-lts-2.12
-    - EMBER_TRY_SCENARIO=ember-lts-2.16
-    - EMBER_TRY_SCENARIO=ember-release
-    - EMBER_TRY_SCENARIO=ember-beta
-    - EMBER_TRY_SCENARIO=ember-canary
-    - EMBER_TRY_SCENARIO=ember-default
 
-matrix:
-  fast_finish: true
+jobs:
+  fail_fast: true
   allow_failures:
     - env: EMBER_TRY_SCENARIO=ember-canary
+
+  include:
+    # runs linting and tests with current locked deps
+
+    - stage: 'Tests'
+      name: 'Tests'
+      install:
+        - yarn install --non-interactive
+      script:
+        - yarn lint:js
+        - ember test
+
+    - name: 'Floating Dependencies'
+      script:
+        - ember test
+
+    # we recommend new addons test the current and previous LTS
+    # as well as latest stable release (bonus points to beta/canary)
+    - stage: 'Additional Tests'
+      env: EMBER_TRY_SCENARIO=ember-lts-2.16
+    - env: EMBER_TRY_SCENARIO=ember-lts-2.18
+    - env: EMBER_TRY_SCENARIO=ember-release
+    - env: EMBER_TRY_SCENARIO=ember-beta
+    - env: EMBER_TRY_SCENARIO=ember-default-with-jquery
+    - stage: 'Canary Tests'
+      script:
+        - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO
+      env: EMBER_TRY_SCENARIO=ember-canary
 
 before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash
@@ -39,17 +59,4 @@ install:
   - yarn install --no-lockfile --non-interactive
 
 script:
-  - yarn lint:js
-  # Usually, it's ok to finish the test scenario without reverting
-  #  to the addon's original dependency state, skipping "cleanup".
-  - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
-  - git add -A
-  - git reset --hard HEAD
-
-deploy:
-  provider: heroku
-  api_key:
-    secure: FN++IaJe7dda8yoE2djRoNWuHKyBBaiGVsx6q3bu0GTMQjzzbJAfp15tghl1+QAZemAvPCXxSDgQkIvqrFsYlwfvVB8kB16DRc9p5do5IOH+pQhQnGtNeUyKH0fQTjRfsBNfEW+eInguv9H8H6S+AVJiYO7tAFKZ/iSliM2TDP9jS2TOPS/vTls5qhqyVndS9RcMde6DHBjtUgXPnrDjBIlsrb35VFVX3rro4Dd/aIXxhqUtESfZUEqHwxT1Vix0vTKMUpbXeBTeIeH+l/eyQvPq1kkz8myIe4rJCPkc3xWc5LM1vO0l3XBz7bPkUAyaP+seKYkTEclurpUE/+g7CGG2bUrnnxi0Qsc8nbxu0uhJeUduEJu62QYU+j6aDVwHmbNc2Z1yKmYHqvk3vI6Weha8OVzcWmnBfU1HQKDVYkeIlyYnJIqMlCRESI0LS1n4n3mBi68q0SBGxFyU5SmVLcZTayAFH31OLq5sKNmGv6o5PJzZ7KKjs5tVsvpNBJfaaxH8NhlAftvCYqv0YRwEkQU6w3/jD5nsUBD/GCuc+6rA31AhR7a3IOGCn7A4AIa3xR3WryPcOLVWrmAaV2/VW0zHOBAHw5O+NK8go+OtY6u7s9n+KaXy3mmYA8GwxDFs6BJEeu3HFwev8yGuM6hoJF2rwGFkBZlmhUjqIhpHmAI=
-  app: ember-parallax
-  on:
-    repo: mike-north/ember-parallax
+  - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO && yarn travis-deploy-once "yarn semantic-release"
