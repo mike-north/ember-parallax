@@ -811,6 +811,19 @@
   resolved "https://registry.yarnpkg.com/@mike-north/js-lib-renovate-config/-/js-lib-renovate-config-1.0.0.tgz#e00a7264de0767049d3a75c29e36db69b0ac81cf"
   integrity sha512-ixKtfThE8RFJDAFXrypSYPEkPzXB8yTaRjillj5/T5JcF4+pWfrDKhOUb2tytnJLBgNzUjohWwIdxy6yFbWRbQ==
 
+"@mike-north/js-lib-semantic-release-config@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@mike-north/js-lib-semantic-release-config/-/js-lib-semantic-release-config-1.0.0.tgz#8ec3702da90c3d93c0ee71bd3a75c7f8192a56de"
+  integrity sha512-0R4KS60dHVxV1+Fg9y7oTbR/rFMNfrGPyTLD8fA03GpKftsPwaa17hUZPtjiMX91yRW7sicehk0TBGJGabu/Ig==
+  dependencies:
+    "@semantic-release/changelog" "^3.0.0"
+    "@semantic-release/error" "^2.2.0"
+    "@semantic-release/exec" "^3.0.2"
+    "@semantic-release/git" "^7.0.5"
+    "@semantic-release/github" "^5.0.2"
+    semantic-release "^15.9.9"
+    travis-deploy-once "^5.0.9"
+
 "@mike-north/js-lib-semantic-release-config@1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@mike-north/js-lib-semantic-release-config/-/js-lib-semantic-release-config-1.0.1.tgz#39a42e84deeebe77c73aff69879582d1418c0505"
@@ -4127,7 +4140,7 @@ ember-cli-app-version@3.2.0:
     ember-cli-babel "^6.12.0"
     git-repo-version "^1.0.2"
 
-ember-cli-babel@^6.0.0, ember-cli-babel@^6.0.0-beta.7, ember-cli-babel@^6.10.0, ember-cli-babel@^6.3.0, ember-cli-babel@^6.6.0, ember-cli-babel@^6.8.1:
+ember-cli-babel@^6.0.0-beta.7, ember-cli-babel@^6.10.0, ember-cli-babel@^6.3.0, ember-cli-babel@^6.6.0, ember-cli-babel@^6.8.1:
   version "6.11.0"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-6.11.0.tgz#79cb184bac3c05bfe181ddc306bac100ab1f9493"
   integrity sha512-lHQyl30lbAsMmMq2it1GO85HKrqr2gMpK5CFxmOgTJ3moBqOGMKsdV3Z0qXWpgh8Asy7pB9AACMShdgfQvSGPg==
@@ -4578,12 +4591,17 @@ ember-try@1.1.0:
     rsvp "^4.7.0"
     walk-sync "^0.3.3"
 
-ember-windoc@0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/ember-windoc/-/ember-windoc-0.2.0.tgz#b97e69cf65a2e27f2ee941616bfe475ac6857416"
-  integrity sha1-uX5pz2Wi4n8u6UFha/5HWsaFdBY=
+ember-windoc@0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/ember-windoc/-/ember-windoc-0.3.1.tgz#1da16f6f9068de2895f7ec3d8b89598ccbb942ab"
+  integrity sha512-W+G3YcirYaudQB4Q4G3STxGr0DRJ02OmpIOB8Hb17I6xK9huqGjIG5D7r/1BsxQfVCb5qysJ87VzwZEm1JkqSg==
   dependencies:
-    ember-cli-babel "^6.0.0"
+    ember-cli-babel "^7.0.0"
+  optionalDependencies:
+    "@mike-north/js-lib-renovate-config" "1.0.0"
+    "@mike-north/js-lib-semantic-release-config" "1.0.0"
+    semantic-release "^15.10.8"
+    travis-deploy-once "^5.0.9"
 
 emit-function@0.0.2:
   version "0.0.2"
@@ -10607,7 +10625,7 @@ sax@^1.2.4:
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
 
-semantic-release@^15.9.9:
+semantic-release@^15.10.8, semantic-release@^15.9.9:
   version "15.10.8"
   resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-15.10.8.tgz#07027a159199148998dc5f246ed6533d0441851c"
   integrity sha512-+n1eQArIw0TROFFwyf6csSLtKPt47goFbYk0ROAz3ja0r0ltV/ClKNCN6bkV2XzVlvTYqYFY6yutOIvPr1K4hQ==
