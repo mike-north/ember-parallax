@@ -41,6 +41,7 @@ jobs:
     # we recommend new addons test the current and previous LTS
     # as well as latest stable release (bonus points to beta/canary)
     - stage: 'Additional Tests'
+      node_js: '10'
       env: EMBER_TRY_SCENARIO=ember-lts-2.16
     - env: EMBER_TRY_SCENARIO=ember-lts-2.18
     - env: EMBER_TRY_SCENARIO=ember-release
@@ -59,4 +60,4 @@ install:
   - yarn install --no-lockfile --non-interactive
 
 script:
-  - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO && yarn travis-deploy-once "yarn semantic-release"
+  - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO && yarn travis-deploy-once -b 6 "yarn semantic-release"
